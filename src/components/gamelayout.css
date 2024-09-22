@@ -1,0 +1,91 @@
+h1 {
+    font-size: 4rem;
+    margin-left: 1rem;
+}
+
+.score-board {
+    height: 22vh;
+    display: flex;
+    justify-content: space-between; /* Align items to the left and right */
+    padding: 0 2rem; /* Add padding for responsiveness */
+}
+
+.score {
+    margin-left: 2rem;
+}
+
+.number {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    left: 0; /* Move the number selection to the left */
+}
+
+.num {
+    border: 1px solid black;
+    padding: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover/active state */
+}
+
+.num:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.game {
+    height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.inst {
+    font-size: x-large;
+}
+
+.active {
+    background-color: black;
+    color: white;
+}
+
+.image {
+    max-height: 30vh; /* Set a maximum height for the image */
+    width: 100%; /* Make width 100% to fill the container */
+    max-width: 18vw; /* Set a maximum width for the image */
+}
+
+img {
+    height: 100%; /* Ensure the image fills the container's height */
+    width: 100%; /* Ensure the image fills the container's width */
+    object-fit: contain; /* Maintain aspect ratio and fill the container */
+}
+
+.rules {
+    height: 10vh;
+    width: 45vw;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .score-board {
+        flex-direction: column; /* Stack the score and number selection on smaller screens */
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .number {
+        justify-content: center; /* Center the number div on smaller screens */
+    }
+
+    .image {
+        max-width: 90%; /* Make the image fill more of the width on smaller screens */
+    }
+
+    .rules {
+        width: 90vw; /* Make the rules section responsive */
+    }
+}
