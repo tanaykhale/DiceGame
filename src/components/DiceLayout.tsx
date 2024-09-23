@@ -18,7 +18,9 @@ const DiceLayout = () => {
       </article>
       <article className="msg">
         <h1>Dice Game</h1>
-        <button onClick={handlePlayNowClick}>Play now</button>
+        <button className="playnow" onClick={handlePlayNowClick}>
+          Play now
+        </button>
       </article>
     </section>
   );

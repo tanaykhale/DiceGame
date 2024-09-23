@@ -9,11 +9,12 @@ import Image6 from "../assets/dice_6.png";
 
 export default function Gamelayout() {
   const [score, setScore] = useState(0);
-  const [yourNumber, setYourNumber] = useState(1); // Set default selected number to 1
+  const [yourNumber, setYourNumber] = useState(0);
   const [compNumber, setCompNumber] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [image, setImage] = useState(Image1);
   const [ruleVisiblity, setRulesVisibility] = useState(false);
+  const [warning, setWarning] = useState(false);
 
   const numbers = [1, 2, 3, 4, 5, 6];
   const img = [Image1, Image2, Image3, Image4, Image5, Image6];
@@ -26,6 +27,11 @@ export default function Gamelayout() {
     const compNum = generateNumber();
     console.log(compNum);
     setCompNumber(compNum); // Update the computer's generated number
+    if (yourNumber === 0) {
+      setWarning(true); // Show warning if no number is selected
+      return;
+    }
+    setWarning(false);
     if (compNum === yourNumber) {
       setScore((prevScore) => prevScore + 1); // Increment score if numbers match
     }
@@ -48,6 +54,12 @@ export default function Gamelayout() {
           <p>Your Score</p>
         </div>
         <div className="select-number">
+          <p
+            id="warning"
+            style={{ visibility: warning ? "visible" : "hidden" }}
+          >
+            You have not selected any number
+          </p>
           <div className="number">
             {numbers.map((number) => (
               <p
@@ -56,6 +68,7 @@ export default function Gamelayout() {
                 onClick={() => {
                   setYourNumber(number);
                   setIsActive(!isActive);
+                  setWarning(false);
                 }}
               >
                 {number}
@@ -78,16 +91,13 @@ export default function Gamelayout() {
           />
         </div>
         <p className="inst">Click on the dice to roll</p>
-
-        {compNumber !== null && (
-          <p className="comp-num">Computer rolled: {compNumber}</p>
-        )}
-        <div className="button">
-          <button type="button" onClick={resetScore}>
+        <div className="button-option">
+          <button type="button" id="reset" onClick={resetScore}>
             Reset Score
           </button>
           <br />
           <button
+            id="rulebtn"
             type="button"
             onClick={() => {
               toggleVisibility();
@@ -101,10 +111,14 @@ export default function Gamelayout() {
           className="rules"
           style={{ visibility: ruleVisiblity ? "visible" : "hidden" }}
         >
-          <ol>
-            <li>Select a number from above and click on the dice...</li>
-            <li>If your number and the dice number is same you get a point</li>
-          </ol>
+          <h2>How to play</h2>
+          <p>1. Select a number from above. </p>
+          <p>2. Click on the dice.</p>
+          <p>
+            3. After click on dice if selected number is equal to dice number
+            you will get a point.
+          </p>
+          <p>4. If you get wrong guess then 2 point will be reduced.</p>
         </div>
       </div>
     </>
