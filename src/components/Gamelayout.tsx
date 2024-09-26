@@ -1,23 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./gamelayout.css";
-import Image1 from "../assets/dice_1.png";
-import Image2 from "../assets/dice_2.png";
-import Image3 from "../assets/dice_3.png";
-import Image4 from "../assets/dice_4.png";
-import Image5 from "../assets/dice_5.png";
-import Image6 from "../assets/dice_6.png";
 
 export default function Gamelayout() {
   const [score, setScore] = useState(0);
   const [yourNumber, setYourNumber] = useState(0);
   const [compNumber, setCompNumber] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [image, setImage] = useState(Image1);
   const [ruleVisiblity, setRulesVisibility] = useState(false);
   const [warning, setWarning] = useState(false);
 
   const numbers = [1, 2, 3, 4, 5, 6];
-  const img = [Image1, Image2, Image3, Image4, Image5, Image6];
 
   const generateNumber = () => {
     return Math.floor(Math.random() * 6) + 1; // Generate number from 1 to 6
@@ -35,7 +27,6 @@ export default function Gamelayout() {
     if (compNum === yourNumber) {
       setScore((prevScore) => prevScore + 1); // Increment score if numbers match
     }
-    setImage(img[compNum - 1]);
   };
 
   const resetScore = () => {
@@ -45,7 +36,16 @@ export default function Gamelayout() {
   const toggleVisibility = () => {
     setRulesVisibility((prevState) => !prevState);
   };
-
+  const [clock, setClock] = useState(0);
+  const clockRef = useRef(clock);
+  const startClock = () => {
+    setTimeout(() => {
+      clockRef.current += 1;
+      setClock(clockRef.current);
+      startClock();
+    }, 1000);
+  };
+  if (clockRef.current === 0) startClock();
   return (
     <>
       <div className="score-board">
@@ -53,6 +53,7 @@ export default function Gamelayout() {
           <h1>{score}</h1>
           <p>Your Score</p>
         </div>
+        <div className="time">{clock}</div>
         <div className="select-number">
           <p
             id="warning"
@@ -82,7 +83,7 @@ export default function Gamelayout() {
       <div className="game">
         <div className="image">
           <img
-            src={image}
+            src={`src/assets/dice_${compNumber || 6}.png`}
             alt="Dice"
             onClick={(e) => {
               e.preventDefault();

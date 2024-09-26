@@ -7,9 +7,9 @@ const DiceLayout = () => {
   const navigate = useNavigate();
 
   // Memoize the navigation function for efficiency
-  const handlePlayNowClick = useCallback(() => {
+  const handlePlayNowClick = () => {
     navigate("/Gamelayout");
-  }, [navigate]);
+  };
 
   return (
     <section className="container">
